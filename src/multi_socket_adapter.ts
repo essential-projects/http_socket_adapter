@@ -44,9 +44,9 @@ export class MultiHttpSocketAdapter implements IHttpSocketAdapter, IEndpointSock
   }
 
   public getNamespace(namespaceIdentifier: string): IEndpointSocketScope {
-    const socketNamespaces: Array<IEndpointSocketScope> = Object.values(this._socketAdapters);
+    const socketAdapters: Array<IHttpSocketAdapter> = Object.values(this._socketAdapters);
 
-    return new MultiSocketNamespace(namespaceIdentifier, socketNamespaces);
+    return new MultiSocketNamespace(namespaceIdentifier, socketAdapters);
   }
 
   private async _initializeSocketAdapter(socketAdapterName: string): Promise<void> {

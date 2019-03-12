@@ -1,35 +1,36 @@
-import {IIdentity} from '@essential-projects/iam_contracts';
-import {IEndpointSocketScope, ISocketClient, OnConnectCallback} from '@essential-projects/websocket_contracts';
+import {IHttpSocketAdapter} from '@essential-projects/http_socket_adapter_contracts';
+import {IEndpointSocketScope, OnConnectCallback} from '@essential-projects/websocket_contracts';
 
 export class MultiSocketNamespace implements IEndpointSocketScope {
 
   private _namespaceIdentifier: string = undefined;
-  private _socketNamespaces: Array<IEndpointSocketScope> = undefined;
+  private _socketAdapters: Array<IHttpSocketAdapter> = undefined;
 
-  constructor(namespaceIdentifier: string, socketNamespaces: Array<IEndpointSocketScope>) {
+  constructor(namespaceIdentifier: string, socketAdapters: Array<IHttpSocketAdapter>) {
     this._namespaceIdentifier = namespaceIdentifier;
-    this._socketNamespaces = socketNamespaces;
+    this._socketAdapters = socketAdapters;
   }
 
   public get namespaceIdentifier(): string {
     return this._namespaceIdentifier;
   }
 
-  public get socketNamespaces(): Array<IEndpointSocketScope> {
-    return this._socketNamespaces;
+  public get socketAdapters(): Array<IHttpSocketAdapter> {
+    return this._socketAdapters;
   }
 
   public onConnect(callback: OnConnectCallback): void {
 
-    for (const socketNamespace of this.socketNamespaces) {
-      socketNamespace.onConnect(callback);
+    for (const socketAdapter of this.socketAdapters) {
+      socketAdapter.onConnect(callback);
     }
   }
 
   public emit<TMessage>(eventType: string, message: TMessage): void {
 
-    for (const socketNamespace of this.socketNamespaces) {
-      socketNamespace.emit(eventType, message);
+    for (const socketAdapter of this.socketAdapters) {
+      const namespace: IEndpointSocketScope = socketAdapter.getNamespace(this.namespaceIdentifier);
+      namespace.emit(eventType, message);
     }
   }
 }
