@@ -44,7 +44,7 @@ export class MultiHttpSocketAdapter implements IHttpSocketAdapter, IEndpointSock
   }
 
   public getNamespace(namespaceIdentifier: string): IEndpointSocketScope {
-    const socketNamespaces: Array<IEndpointSocketScope> = [];
+    const socketNamespaces: Array<IEndpointSocketScope> = Object.values(this._socketAdapters);
 
     return new MultiSocketNamespace(namespaceIdentifier, socketNamespaces);
   }
