@@ -22,7 +22,8 @@ export class MultiSocketNamespace implements IEndpointSocketScope {
   public onConnect(callback: OnConnectCallback): void {
 
     for (const socketAdapter of this.socketAdapters) {
-      socketAdapter.onConnect(callback);
+      const namespace: IEndpointSocketScope = socketAdapter.getNamespace(this.namespaceIdentifier);
+      namespace.onConnect(callback);
     }
   }
 
