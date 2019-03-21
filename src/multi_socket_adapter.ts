@@ -56,7 +56,7 @@ export class MultiHttpSocketAdapter implements IHttpSocketAdapter, IEndpointSock
       throw new Error(`There is no socket adapter registered for key '${socketAdapterName}'`);
     }
 
-    const socketAdapterInstance: HttpSocketAdapter = await this.container.resolveAsync<HttpSocketAdapter>(socketAdapterName);
+    const socketAdapterInstance: IHttpSocketAdapter = await this.container.resolveAsync<IHttpSocketAdapter>(socketAdapterName);
 
     await socketAdapterInstance.initializeAdapter(this.httpServer);
 
@@ -75,7 +75,7 @@ export class MultiHttpSocketAdapter implements IHttpSocketAdapter, IEndpointSock
   public onConnect(callback: OnConnectCallback): void {
 
     for (const socketAdapterName in this.socketAdapters) {
-      const socketAdapterInstance: HttpSocketAdapter = this.socketAdapters[socketAdapterName];
+      const socketAdapterInstance: IHttpSocketAdapter = this.socketAdapters[socketAdapterName];
 
       socketAdapterInstance.onConnect(callback);
     }
@@ -84,7 +84,7 @@ export class MultiHttpSocketAdapter implements IHttpSocketAdapter, IEndpointSock
   public emit<TMessage>(eventType: string, message: TMessage): void {
 
     for (const socketAdapterName in this.socketAdapters) {
-      const socketAdapterInstance: HttpSocketAdapter = this.socketAdapters[socketAdapterName];
+      const socketAdapterInstance: IHttpSocketAdapter = this.socketAdapters[socketAdapterName];
 
       socketAdapterInstance.emit(eventType, message);
     }
