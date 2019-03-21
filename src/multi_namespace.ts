@@ -1,5 +1,4 @@
-import {IHttpSocketAdapter} from '@essential-projects/http_socket_adapter_contracts';
-import {IEndpointSocketScope, OnConnectCallback} from '@essential-projects/websocket_contracts';
+import {IEndpointSocketScope, IHttpSocketAdapter, OnConnectCallback} from '@essential-projects/http_socket_adapter_contracts';
 
 export class MultiSocketNamespace implements IEndpointSocketScope {
 

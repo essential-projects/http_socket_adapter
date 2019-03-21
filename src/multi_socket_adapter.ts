@@ -2,8 +2,7 @@ import {IContainer, IInstanceWrapper} from 'addict-ioc';
 import * as http from 'http';
 
 import {socketAdapterDiscoveryTag} from '@essential-projects/http_contracts';
-import {IHttpSocketAdapter} from '@essential-projects/http_socket_adapter_contracts';
-import {IEndpointSocketScope, OnConnectCallback} from '@essential-projects/websocket_contracts';
+import {IEndpointSocketScope, IHttpSocketAdapter, OnConnectCallback} from '@essential-projects/http_socket_adapter_contracts';
 import {MultiSocketNamespace} from './multi_namespace';
 
 type SocketAdapterCollection = { [socketAdapterName: string]: IHttpSocketAdapter };
