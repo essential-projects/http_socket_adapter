@@ -6,9 +6,7 @@ import {IHttpSocketAdapter} from '@essential-projects/http_socket_adapter_contra
 import {IEndpointSocketScope, OnConnectCallback} from '@essential-projects/websocket_contracts';
 import {MultiSocketNamespace} from './multi_namespace';
 
-type SocketAdapterCollection = { [socketAdapterName: string]: HttpSocketAdapter };
-
-type HttpSocketAdapter = IHttpSocketAdapter & IEndpointSocketScope;
+type SocketAdapterCollection = { [socketAdapterName: string]: IHttpSocketAdapter };
 
 export class MultiHttpSocketAdapter implements IHttpSocketAdapter, IEndpointSocketScope {
 
